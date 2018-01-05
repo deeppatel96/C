@@ -1,0 +1,17 @@
+Assignment0 README File
+
+Student 1: Deep Patel dp767
+
+
+Task: Sort words in a string in alphabetical order containing both characters and non-characters. Use the non-alphabetic characters to seperate the words. Store the words in some data structure and use a sorting algorithm and then print the words out in sorted order.
+
+
+Solution: 
+
+The algorithm I used first takes in a string of any length by using the realloc() which makes dynamic memory allocation easy. It then goes through each character in the string and breaks up words when a non-character or list of non-characters show up. The words are stored with malloc and stored with pointers in a linked link of any size. The words are then sorted using a selection sort algorithm where words are compared using the strcmp() function. The stored linked list of words is then printed out onto the screen.
+
+You should notice how I did not use any set numbered length arrays or any arrays at all. The use of pointers in C makes it very efficient and there is no need to waste space creating huge arrays or have to worry about running out of space and getting errors because that is already accounted for with dynamic memory allocation. I would also like you to notice the use of a linked list, which is also an efficient was to store pointers and they can be rearranged with a couple of commands.
+
+I hope the code itself is clear enough for you to understand.
+
+

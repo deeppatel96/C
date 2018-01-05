@@ -1,0 +1,62 @@
+Deep Patel
+159000639
+
+
+"README" file for Assignment 2: Procs vs Threads (round 0)
+======================================================================
+
+CONTENTS:
+
+- compressR_LOLS.c 
+	- (project source code (process manager/parent))
+
+- compressT_LOLS.c 
+	- (project source code (threads)))
+
+- compressR_worker_LOLS.c 
+	- (project source code (process worker/child)
+
+- readme.pdf 
+	- (project documentation)
+
+- testplan.txt 
+	- (Testing parameters to bug check the code) 
+
+- timetests.pdf 
+	- (description of how we tested procs vs threads)
+
+========================================================================
+
+Compiling:
+
+Use -pthread next to gcc to compile in case it does not work.
+
+compressR_LOLS.c sometimes gives a permission error when using exec, so make sure the folder has rights to access other files. I tried to find a permenant fix but it was different for different machines.
+
+
+Challenges:
+
+I felt like the hardest part of this assignment was making sure all errors were found and to account for anything going wrong. Also it was difficult to use some things becasue there are not as many resources on them, such as exec and its parameters. I had a few problems with permission as well.
+
+
+Error Handling:
+
+empty file: print error statement and exit
+fewer characters than are parts requested: print error statement and exit
+error opening file: print error statement and exit
+compressed file already exists: print error statement and exit
+
+
+I used open instead of fopen becasue it is more backwards compatible and less prone to errors.
+
+
+
+Results:
+
+From the timings it can be seem that treads were clearly the better performer. They were faster than the processes. This is valid because threads are low latency and do not have to copy the large amounts of overhead that forking and creating a new processes causes. Also running exec() makes it more resource consuming.
+
+
+
+
+
+

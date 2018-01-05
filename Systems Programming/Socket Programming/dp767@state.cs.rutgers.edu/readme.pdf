@@ -1,0 +1,93 @@
+Deep Patel
+RUID:159000639
+netid: dp767
+
+
+"README" file for Assignment 3: Remote Files
+
+My code includes Base Program + Extension A + read part of Extension B
+==============================================================================
+
+CONTENTS:
+
+- libnetfiles.c
+	- (client source code)
+
+- libnetfiles.h
+	- (client header file)
+
+- netfileserver.c
+	- (server source code)
+
+- netfileserver.h
+	- (server header file)
+
+- readme.pdf 
+	- (project documentation)
+
+- Makefile
+	- (used to compile code)
+
+===============================================================================
+
+
+Compiling:
+
+The Makefile includes -pthread next to gcc for compile.
+It also turns on all warnings.
+
+
+===============================================================================
+
+Submission:
+
+Base Program: fully functional
+
+Extension A: fully functional
+
+Extension B: 
+I did this extension for netreads, and was going to basically copy it for netwrites, but did not get time to do that, so I would appreciate it if I got soem partial credit. I was going to remove it, thinking I was not going to finish anyway, but I kept it because I thought it was well written and worth something.
+
+===============================================================================
+
+Explanation:
+
+Messages: 
+To communicate between the client and server, I made a bunch of message structs specific to the current task, which are defined exactly the same on the client side and the server side. When bytes are read and written from either side, they can be casted into the approriate message type and information can be accessed with ease. The first message that is sent for every net file command, it the command itself, which I defined in both the client and server side so that the worker thread can execute the appropiate command.
+
+Client:
+All net commands make their own socket connections and have their own respective pthread in the server
+
+netserverinit: checks the hostname and initializes a global host. Also initilaizes global open files data structure.
+
+netopen: makes socket connection and send message to server giving request info. Receives back message and returns fd or -1 and errno appropriately
+
+netread: will always read from beginnign of file
+
+netwrite: will always write to beginning of file, because O_APPEND is not one of the flag options in OPEN so this is the the design of overwriting the file that I ahve chosen.
+
+netclose: same as netopen, but closes the fd
+
+
+Server:
+
+I set my listen backlog to 10 sockets (it can be changed).
+
+The server keeps track of all the open files, their fds, how many clients are reading the file, how many are writing, total client numbers, and if the file can currently be written into and read from. This provides all the necessary information that thr server needs to know so that it can check to see if it can open or close a file.
+
+To protect the critical section: which is the manipulation of the open_files data structures, I have used a binary semaphore and this is used in threadOpen threadClose, the only 2 times when the contents of open_files is used.
+
+================================================================================
+
+Challenges:
+
+I felt like the hardest part of this assignment was making sure all errors were found and to account for anything going wrong. Also it was difficult to use some things because it is hard to visualize and find bugs readily.
+
+Another challenge was making sure the locks were set in the correct place so that the critical section is protected and deadlock does not occur.
+
+================================================================================
+
+
+
+
+

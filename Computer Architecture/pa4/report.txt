@@ -1,0 +1,80 @@
+Deep Patel
+159000639
+dp767
+
+CS211 Fall 2016
+Programming Assignment 4: Cache Simulator
+Due: 11:55 PM, Tuesday Nov. 30
+
+
+My program works for all policies: (LRU and FIFO) & (write back and write through).
+
+
+
+NUMBER (4):
+
+Which one of the above caches gives a better hit rate and why? Explain your observation and thoughts on this in the report.
+
+
+
+Parameters:
+-----------
+Cache Size: 32 Bytes 
+Block Size: 4 Bytes
+2-way associative
+
+Method 1: order of bits is tag, index, block
+Method 2: order of bits is index, tag, block
+
+
+RESULTS:
+--------
+
+     file     |   method	  |   policies  |  reads  | writes |  hits   | misses 
+--------------|-------------|-------------|---------|--------|---------|--------
+  mytrace.txt |      1      |   FIFO/wt:  |    3    |    3   |    3    |   3  
+  mytrace.txt |      1      |   FIFO/wb:  |    3    |    0   |    3    |   3  
+  mytrace.txt |      1      |   LRU/wt:   |    3    |    3   |    3    |   3  
+  mytrace.txt |      1      |   LRU/wb:   |    3    |    0   |    3    |   3  
+--------------|-------------|-------------|---------|--------|---------|--------
+  mytrace.txt |      2      |   FIFO/wt:  |    3    |    3   |    3    |   3    
+  mytrace.txt |      2      |   FIFO/wb:  |    3    |    1   |    3    |   3 
+  mytrace.txt |      2      |   LRU/wt:   |    4    |    3   |    2    |   4 
+  mytrace.txt |      2      |   LRU/wb:   |    4    |    2   |    2    |   4   
+--------------|-------------|-------------|---------|--------|---------|--------
+
+
+     file     |   method	  |   policies  |  reads  | writes |  hits   | misses 
+--------------|-------------|-------------|---------|--------|---------|--------
+  trace1.txt  |      1      |   FIFO/wt:  |   336   |   334  |   664   |  336    
+  trace1.txt  |      1      |   FIFO/wb:  |   336   |   331  |   664   |  336    
+  trace1.txt  |      1      |   LRU/wt:   |   336   |   334  |   664   |  336    
+  trace1.txt  |      1      |   LRU/wb:   |   336   |   331  |   664   |  336    
+--------------|-------------|-------------|---------|--------|---------|--------
+  trace1.txt  |      2      |   FIFO/wt:  |   667   |   334  |   333   |  667    
+  trace1.txt  |      2      |   FIFO/wb:  |   667   |   332  |   333   |  667    
+  trace1.txt  |      2      |   LRU/wt:   |   667   |   334  |   333   |  667    
+  trace1.txt  |      2      |   LRU/wb:   |   667   |   332  |   333   |  667    
+--------------|-------------|-------------|---------|--------|---------|--------
+
+
+     file     |   method	  |   policies  |  reads  | writes |  hits   | misses 
+--------------|-------------|-------------|---------|--------|---------|--------
+  trace2.txt  |      1      |   FIFO/wt:  |   3500  |  2861  |   6500  |  3500    
+  trace2.txt  |      1      |   FIFO/wb:  |   3500  |  2853  |   6500  |  3500   
+  trace2.txt  |      1      |   LRU/wt:   |   3500  |  2861  |   6500  |  3500   
+  trace2.txt  |      1      |   LRU/wb:   |   3500  |  2826  |   6500  |  3500   
+--------------|-------------|-------------|---------|--------|---------|--------
+  trace2.txt  |      2      |   FIFO/wt:  |   6759  |  2861  |   3241  |  6759    
+  trace2.txt  |      2      |   FIFO/wb:  |   6759  |  2819  |   3241  |  6759    
+  trace2.txt  |      2      |   LRU/wt:   |   6760  |  2861  |   3240  |  6760    
+  trace2.txt  |      2      |   LRU/wb:   |   6760  |  2819  |   3240  |  6760    
+
+
+
+From the above results, it can obviously be seen that using method 2, where the index bits are the most signifcant bits of the address, renders a very low hit rate compared to using method 1, where tag bits are the most significant bits of the address.
+
+This is because a concept that is similar to that used in a hash table. In the cache, you want addresses close to each other in memory to be close to each other in the cache so that they can be in the same set and you have a higher chance of getting a cache hit. When you use the most significant bits for index bits, the addresses keep getting mapped to the same location in the cache because in real life you are usually accessing memory that is spatially close to each other and even contiguous. Thus, if you use the higher order bits of the address for the index, the same set(s) in the cache will write over itself over and over again, which leaves a large portion of the cache empty and one part dense. This completely kills the objective of the cache, which is the keep as much of main memory that is likely to be accessed in the near future that you can in it, so that you have quick access to it and do not need to go to main memory which is expensive.
+
+Above, you can see that the cache replacement policies (FIFO & LRU) and write policies (write-back & write-through) do not make a significant change to the results compared to the method of indexing used. As you can see from the table, the hit rate of Method 1 (~66% hit rate) is about double that of method 2 (~33% hit rate).
+

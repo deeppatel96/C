@@ -1,0 +1,97 @@
+Test Case 1:
+
+Regular sentence with spaces: 
+
+Input: cat went up the big mountain top last night.
+Expected Output: 
+big
+cat
+last
+mountain
+night
+the
+top
+up
+went
+
+-------------------------------------------
+Test Case 2:
+
+Sentence with non-alphabetic characters in between
+
+Input: that8would9be2rather?fun`if\you@ask7me
+Expected Output: A Brown Dog Fox Jumps Lazy Over Quick The
+Output:
+ask
+be
+fun
+if
+me
+rather
+that
+would
+you
+
+-------------------------------------------
+Test Case 3: 
+
+Sentence with multiple consecutive non-characters as spaces.
+
+Input: the0928302983dog8was   on323time!!out98&*2he(*&did)*(not78listen
+Expected Output: A Brown Dog Fox Jumps Lazy Over Quick The
+Output:
+did
+dog
+he
+listen
+not
+on
+out
+the
+time
+was
+
+-------------------------------------------
+Test Case 4:
+
+An empty no value input
+
+Input:
+Expected Output:
+Output:
+
+
+-------------------------------------------
+Test Case 5:
+
+One word input
+
+Input: out98
+Expected Output: 
+out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

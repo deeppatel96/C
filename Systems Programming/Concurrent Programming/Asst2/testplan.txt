@@ -1,0 +1,58 @@
+Deep Patel
+
+
+This document will provide insight on how we tested procs vs. threads,
+the values we logged, and how many times we ran the tests. 
+
+========================================================================
+Testing procs vs threads 
+
+
+Tests for:
+1. File does not exist
+
+2. File already compressed
+
+3. More number of segments than Length
+
+4. Adds "./" infront of file name if not already present
+
+5. Segments are equal to length
+
+6. Simple short input
+
+7. Non-alphabetic characters test
+
+8. Numerical characters test
+
+9. Even splits between segments
+
+10. Odd splits between segments
+
+11. Long inputs
+		
+
+
+AVERAGE TIMES
+--------------
+Threads:
+small input, 4 segments: 0.860 ms
+large input, 10 segments: 5.392 ms
+
+Processes:
+small input, 4 segments: 44.2 ms
+small input, 10 segments: 323.2 ms
+
+
+
+HOW:
+-----
+I timed my code by making an outside function and main that ran the thread and process functions and got the times before and after running. I ran the test cases above and the code handled them by warning and exiting and/or warning and continuing by skiping over that segment.
+The timing cases I ran 100 times each and logged them and displayed the average of them above. They varied by size of input so I chose to display a smaller test case and a larger test case to showcase the differences.
+
+
+
+
+
+
+

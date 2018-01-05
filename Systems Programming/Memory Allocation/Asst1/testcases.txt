@@ -1,0 +1,23 @@
+Deep Patel
+RUID 159000639
+netid dp767
+
+
+
+Asst0 My Testcases
+----------------------------------------------------
+
+Workload E:
+For workload E, I decided to malloc 50 byte blocks 100 times and then randomly free them. This type of random behavior mostly tests the robustness of the merge function. When random chunks of memory free up and start to overlap, it is merge's job to combine the chunks of memory into bigger blocks and get rid of previous metadata from one of the smaller blocks. I pick 100 random indices for pointers in the array of pointers I got form the 100 mallocs. By randomly freeing pointers, I also test the behavior of free when a pointer has already been freed. Thus, at the end I am testing for 2 conditions: proper merging and error when pointer is already freed. At the end, I go through the whole array of 100 pointers and free each one, just in case some where not, due to the random behavior.
+
+The results of this workload were great; merged showed to hold up when I checked the final memory, it was one block. Also, free gave errors when the pointer given was not pointing to metadata that pertained to the "list" or block.
+
+
+
+Workload F:
+For workload F, I decided to malloc 998 bytes 5 times (so that added to the metadata of 2 bytes it is an even 1000 bytes each to total 5000 bytes). This will test if the program will allow all the memory in the array to be allocated or that overflow does not occur. Then, it frees the last 3 pointers and mallocs the same amount (998) again, 10 times in a row. This makes sure that the blocks are merged and then split over and over porperly. We can tell if there is memory leakage if at the end the size of the block in terms of metadata calculations is less than original 5000 (or 1 block of size 4998 accounting for the 2 bytes of overhead).
+
+The results of this workload were good. At the end there were no "memory leaks," as to speak, and no errors because the mallocs and frees were set at distinct amounts.
+
+
+
